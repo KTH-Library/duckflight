@@ -1,0 +1,24 @@
+services:
+
+  sqlflite:
+    image: voltrondata/sqlflite:latest
+    ports:
+      - "31337:31337"
+    environment:
+      - SQLFLITE_PASSWORD=sqlflite_password
+      - SQLFLITE_USERNAME=sqlflite_username
+      - INIT_SQL_COMMANDS=SET threads = 1; SET memory_limit = '1GB';
+      - TLS_ENABLED=0
+      - PRINT_QUERIES="1"
+
+  quackpy:
+    image: ghcr.io/quackscience/quackpy:latest
+    ports:
+      - "8123:8123"
+      - "8815:8815"
+
+  duckflight:
+    image: duckflight
+    command: ./fly.R
+    volumes:
+      - ./fly.R:/fly.R
